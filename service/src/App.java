@@ -27,6 +27,9 @@ public class App {
 		@Override
 		public void onMessage(WebSocket socket, String message) {
 			super.onMessage(socket, message);
+			for(WebSocket s : sockets) {
+				s.send(message);
+			}
 	    	System.out.println("Message " + message);
 			//socket.send(message);
 		}
