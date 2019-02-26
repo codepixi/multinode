@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>Allo Multinode</title>
+    <meta content="">
+    <style></style>
+    
+    
+    <script type="text/javascript">
+    
+    try
+    {
+        var contact = new WebSocket("ws://127.0.0.1:8080/multinode");
+        
+        contact.onclose = function(evenement)
+        {
+            console.log("fermeture" + JSON.stringify(evenement));
+        }
+    }
+    catch(erreur)
+    {
+        console.log("erreur" + JSON.stringify(erreur));        
+    }
+    
+    
+    
+    </script>
+    
+  </head>
+  <body>
+  
+    <h1>Allo Multinode</h1>
+  
+  </body>
+</html>
