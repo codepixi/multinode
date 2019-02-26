@@ -14,8 +14,14 @@
         
         contact.onclose = function(evenement)
         {
-            console.log("fermeture" + JSON.stringify(evenement));
+            console.log("fermeture " + JSON.stringify(evenement));
         }
+        
+        contact.onmessage = function(evenement) 
+        {
+            console.log("message " + JSON.stringify(evenement));
+            //console.debug("Message recu", evenement);
+        };
     }
     catch(erreur)
     {
