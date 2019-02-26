@@ -22,8 +22,14 @@ public class App {
 	    public void onConnect(WebSocket socket) {
 	    	//super.onConnect(socket);
 			sockets.add(socket);
-			System.out.println("Connexion");
+			System.out.println("Connect");
 	    }
+		@Override
+		public void onMessage(WebSocket socket, String message) {
+			super.onMessage(socket, message);
+	    	System.out.println("Message " + message);
+			//socket.send(message);
+		}
 		
 		protected boolean actif = false;
 		protected ExecutorService coordonnateur;
