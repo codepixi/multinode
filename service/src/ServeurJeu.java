@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 
 // https://github.com/javaee/grizzly/blob/master/modules/websockets/src/main/java/org/glassfish/grizzly/websockets/WebSocketApplication.java
 	public class ServeurJeu extends WebSocketApplication implements Runnable{
-		
+				
 		//protected final List<WebSocket> sockets = new ArrayList<WebSocket>();
 		protected final List<Joueur> listeJoueurs = new ArrayList<Joueur>();
 		protected SalleDeJeu salleDeJeu = new SalleDeJeu();
@@ -20,21 +20,35 @@ import com.google.gson.Gson;
 	    public void onConnect(WebSocket socket) {
 	    	//super.onConnect(socket); //sockets.add(socket);
 			this.listeJoueurs.add(new Joueur(socket));
-			System.out.println("Connect");
+			System.out.println("Connexion");
 	    }
+		
 		@Override
-		public void onMessage(WebSocket socket, String message) {
-			super.onMessage(socket, message);
+		public void onMessage(WebSocket socket, String messageJson) {
+			super.onMessage(socket, messageJson);
+
+			System.out.println("onMessage : " + messageJson);
 			
-			Variable variable = parseur.fromJson(message, Variable.class);
+			Message message = parseur.fromJson(messageJson, Message.class);
+			switch(message.getEtiquette())
+			{
+				case "TRANSFERT_VARIABLE":
+					this.recevoirVariable(messageJson);
+				break;
+			}
+		}
+		
+		public void recevoirVariable(String messageJson)
+		{
+			
+			Variable variable = parseur.fromJson(messageJson, Message.TransfertVariable.class).getVariable();
+			//Variable variable = parseur.fromJson(message, Variable.class);
 			System.out.println("Variable : " + variable.getCle() + " = " + variable.getValeur());
 			
 			this.salleDeJeu.enregistrerVariable(variable);
 			for(Joueur joueur : listeJoueurs) {
-				joueur.connexion.send(message);
-			}
-	    	System.out.println("Message " + message);
-			//socket.send(message);
+				joueur.connexion.send(parseur.toJson(variable));
+			}	
 		}
 		
 		protected boolean actif = false;
