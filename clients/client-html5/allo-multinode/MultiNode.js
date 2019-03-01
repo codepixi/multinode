@@ -63,14 +63,14 @@
         this.posterVariableNumerique = function(id, nombre)
         {
             console.debug("MultiNode => posterVariableNumerique()",nombre);
-            this.messageTransfertVariable.variable = new Variable("texte", id, texte);
+            this.messageTransfertVariable.variable = new Variable("numerique", id, texte);
             this.contact.send(JSON.stringify(this.messageTransfertVariable));
         }
         
         this.posterVariableBooleenne = function(id, booleen)
         {
             console.debug("MultiNode => posterVariableBooleenne()",booleen);
-            this.messageTransfertVariable.variable = new Variable("texte", id, texte);
+            this.messageTransfertVariable.variable = new Variable("booleen", id, texte);
             this.contact.send(JSON.stringify(this.messageTransfertVariable));
         }
         
