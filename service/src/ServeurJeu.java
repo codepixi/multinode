@@ -11,14 +11,15 @@ import com.google.gson.Gson;
 // https://github.com/javaee/grizzly/blob/master/modules/websockets/src/main/java/org/glassfish/grizzly/websockets/WebSocketApplication.java
 	public class ServeurJeu extends WebSocketApplication implements Runnable{
 		
-		protected final List<WebSocket> sockets = new ArrayList<WebSocket>();
+		//protected final List<WebSocket> sockets = new ArrayList<WebSocket>();
+		protected final List<Joueur> listeJoueurs = new ArrayList<Joueur>();
 		protected SalleDeJeu salleDeJeu = new SalleDeJeu();
 		protected Gson parseur = new Gson();
 		
 		@Override
 	    public void onConnect(WebSocket socket) {
-	    	//super.onConnect(socket);
-			sockets.add(socket);
+	    	//super.onConnect(socket); //sockets.add(socket);
+			this.listeJoueurs.add(new Joueur(socket));
 			System.out.println("Connect");
 	    }
 		@Override
@@ -28,9 +29,9 @@ import com.google.gson.Gson;
 			Variable variable = parseur.fromJson(message, Variable.class);
 			System.out.println("Variable : " + variable.getCle() + " = " + variable.getValeur());
 			
-			this.salleDeJeu.enregistrerVariable("message", message);
-			for(WebSocket s : sockets) {
-				s.send(message);
+			this.salleDeJeu.enregistrerVariable(variable);
+			for(Joueur joueur : listeJoueurs) {
+				joueur.connexion.send(message);
 			}
 	    	System.out.println("Message " + message);
 			//socket.send(message);

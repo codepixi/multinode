@@ -4,16 +4,16 @@ import java.util.Map;
 public class SalleDeJeu {
 	
 	// https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html
-	Map<String, String> variables = null;
+	Map<String, Variable> variables = null;
 	
 	public SalleDeJeu()
 	{
-		this.variables = new HashMap<String, String>();
+		this.variables = new HashMap<String, Variable>();
 	}
 	
-	public void enregistrerVariable(String cle, String valeur)
+	public void enregistrerVariable(Variable variable)
 	{
-		this.variables.put(cle, valeur);
+		this.variables.put(variable.getCle(), variable);
 	}
 
 }

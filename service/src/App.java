@@ -8,7 +8,7 @@ public class App {
 
 	// https://github.com/javaee/grizzly/blob/master/modules/websockets/src/main/java/org/glassfish/grizzly/websockets/WebSocketEngine.java
 	@SuppressWarnings("deprecation")
-	public App() {
+	public App() { 
 		//HttpServer serveurWeb = HttpServer.createSimpleServer("multinode", 8080);
 	    HttpServer serveurWeb = new HttpServer();
 	    serveurWeb.addListener(new NetworkListener("multinode", "127.0.0.1", 8080));
