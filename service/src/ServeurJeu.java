@@ -47,11 +47,13 @@ import com.google.gson.Gson;
 		public void authentifierJoueur(WebSocket socket, String messageJson)
 		{
 			System.out.println("authentifierJoueur()");
-			
 						
 			Joueur joueur = this.listeJoueurs.get(socket);
 			Message.DemandeAuthentification demandeAuthentification = parseur.fromJson(messageJson, Message.DemandeAuthentification.class);
 			joueur.pseudonyme = demandeAuthentification.pseudonyme;
+			
+			Message.ConfirmationConnexion confirmation = new Message.ConfirmationConnexion();
+			confirmation.pseudonyme = joueur.pseudonyme;
 			
 			Message.NotificationConnexion notification = new Message.NotificationConnexion();
 			notification.pseudonyme = joueur.pseudonyme;
@@ -59,7 +61,11 @@ import com.google.gson.Gson;
 				if(autreJoueur.pseudonyme.compareTo(joueur.pseudonyme) == 0) continue;
 				System.out.println("Joueur " + autreJoueur.pseudonyme + " est averti de la nouvelle connexion");
 				autreJoueur.connexion.send(parseur.toJson(notification));
-			}	
+				confirmation.getListePseudo().add(autreJoueur.pseudonyme);
+			}
+			
+			joueur.connexion.send(parseur.toJson(confirmation));
+			
 		}
 		
 		public void recevoirVariable(String messageJson)

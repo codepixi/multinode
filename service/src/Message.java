@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Message
 {
 	protected String etiquette;
@@ -98,6 +101,32 @@ public class Message
 		
 	}
 	
+	static public class ConfirmationConnexion extends Message
+	{
+		public ConfirmationConnexion() 
+		{
+			this.etiquette = "CONFIRMATION_CONNEXION";
+		}
+		
+		protected String pseudonyme;
+		protected List<String> listePseudo = new ArrayList<String>();
 
+		public List<String> getListePseudo() {
+			return listePseudo;
+		}
+
+		public void setListePseudo(List<String> listePseudo) {
+			this.listePseudo = listePseudo;
+		}
+
+		public String getPseudonyme() {
+			return pseudonyme;
+		}
+
+		public void setPseudonyme(String pseudonyme) {
+			this.pseudonyme = pseudonyme;
+		}
+		
+	}
 }
 		
