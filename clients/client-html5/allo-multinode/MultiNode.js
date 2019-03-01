@@ -36,24 +36,26 @@
         {
             console.log("erreur" + JSON.stringify(erreur));        
         }
-                        
+
+        this.messageTransfertVariable = {etiquette:"TRANSFERT_VARIABLE"};
+        
         this.posterVariableTextuelle = function(id, texte)
         {
-            console.log("MultiNode => posterVariableTextuelle()");
-            var variable = new Variable("texte", id, texte);
-            this.contact.send(JSON.stringify(variable));
+            console.debug("MultiNode => posterVariableTextuelle()",texte);
+            this.messageTransfertVariable.variable = new Variable("texte", id, texte);
+            this.contact.send(JSON.stringify(this.messageTransfertVariable));
         }
 
         this.posterVariableNumerique = function(id, nombre)
         {
-            console.log("MultiNode => posterVariableNumerique()");
+            console.debug("MultiNode => posterVariableNumerique()",nombre);
             var variable = new Variable("nombre", id, texte);
             this.contact.send(JSON.stringify(variable));
         }
         
-        this.posterVariableBooleenne = function(id, nombre)
+        this.posterVariableBooleenne = function(id, booleen)
         {
-            console.log("MultiNode => posterVariableBooleenne()");
+            console.debug("MultiNode => posterVariableBooleenne()",booleen);
             var variable = new Variable("bool", id, texte);
             this.contact.send(JSON.stringify(variable));
         }
