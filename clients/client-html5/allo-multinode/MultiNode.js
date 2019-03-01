@@ -38,6 +38,7 @@
         }
 
         this.messageTransfertVariable = {etiquette:"TRANSFERT_VARIABLE"};
+        this.messageDemandeAuthentification = {etiquette:"DEMANDE_AUTHENTIFICATION"};
         
         this.posterVariableTextuelle = function(id, texte)
         {
@@ -49,15 +50,23 @@
         this.posterVariableNumerique = function(id, nombre)
         {
             console.debug("MultiNode => posterVariableNumerique()",nombre);
-            var variable = new Variable("nombre", id, texte);
-            this.contact.send(JSON.stringify(variable));
+            this.messageTransfertVariable.variable = new Variable("texte", id, texte);
+            this.contact.send(JSON.stringify(this.messageTransfertVariable));
         }
         
         this.posterVariableBooleenne = function(id, booleen)
         {
             console.debug("MultiNode => posterVariableBooleenne()",booleen);
-            var variable = new Variable("bool", id, texte);
-            this.contact.send(JSON.stringify(variable));
+            this.messageTransfertVariable.variable = new Variable("texte", id, texte);
+            this.contact.send(JSON.stringify(this.messageTransfertVariable));
+        }
+        
+        this.demanderAuthentification = function(pseudonyme)
+        {
+            console.debug("MultiNode => demanderAuthentification()",pseudonyme);
+            this.messageDemandeAuthentification.pseudonyme = pseudonyme;
+            this.contact.send(JSON.stringify(this.messageDemandeAuthentification));
+            
         }
         
         // fonction a redefinir
@@ -66,6 +75,7 @@
             
             
         }
+        
     
     }
  

@@ -19,6 +19,7 @@
         }
     
         attendre(500).then(() => {
+            serveurJeu.demanderAuthentification("nadine");
             serveurJeu.posterVariableTextuelle("argent", "million");
         }); 
         
