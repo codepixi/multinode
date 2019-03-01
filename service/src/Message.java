@@ -31,14 +31,14 @@ public class Message
 	
 	public class DemandeAuthentification extends Message
 	{
-		protected String nom;
+		protected String pseudonyme;
 
-		public String getNom() {
-			return nom;
+		public String getPseudonyme() {
+			return pseudonyme;
 		}
 
-		public void setNom(String nom) {
-			this.nom = nom;
+		public void setPseudonyme(String pseudonyme) {
+			this.pseudonyme = pseudonyme;
 		}
 		
 	}

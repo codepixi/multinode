@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -12,14 +14,14 @@ import com.google.gson.Gson;
 	public class ServeurJeu extends WebSocketApplication implements Runnable{
 				
 		//protected final List<WebSocket> sockets = new ArrayList<WebSocket>();
-		protected final List<Joueur> listeJoueurs = new ArrayList<Joueur>();
+		protected final Map<WebSocket, Joueur> listeJoueurs = new HashMap<WebSocket,Joueur>();
 		protected SalleDeJeu salleDeJeu = new SalleDeJeu();
 		protected Gson parseur = new Gson();
 		
 		@Override
 	    public void onConnect(WebSocket socket) {
 	    	//super.onConnect(socket); //sockets.add(socket);
-			this.listeJoueurs.add(new Joueur(socket));
+			this.listeJoueurs.put(socket,new Joueur(socket));
 			System.out.println("Connexion");
 	    }
 		
@@ -35,7 +37,19 @@ import com.google.gson.Gson;
 				case "TRANSFERT_VARIABLE":
 					this.recevoirVariable(messageJson);
 				break;
+				case "DEMANDE_AUTHENTIFICATION":
+					this.authentifierJoueur(socket, messageJson);
+				break;
+					
 			}
+		}
+		
+		public void authentifierJoueur(WebSocket socket, String messageJson)
+		{
+			System.out.println("authentifierJoueur()");
+			Joueur joueur = this.listeJoueurs.get(socket);
+			Message.DemandeAuthentification demandeAuthentification = parseur.fromJson(messageJson, Message.DemandeAuthentification.class);
+			joueur.pseudonyme = demandeAuthentification.pseudonyme;
 		}
 		
 		public void recevoirVariable(String messageJson)
@@ -46,7 +60,8 @@ import com.google.gson.Gson;
 			System.out.println("Variable : " + variable.getCle() + " = " + variable.getValeur());
 			
 			this.salleDeJeu.enregistrerVariable(variable);
-			for(Joueur joueur : listeJoueurs) {
+			for(Joueur joueur : listeJoueurs.values()) {
+				System.out.println("Variable " + variable.getCle() + "=" + variable.getValeur() + " envoyee a " + joueur.pseudonyme);
 				joueur.connexion.send(parseur.toJson(variable));
 			}	
 		}
