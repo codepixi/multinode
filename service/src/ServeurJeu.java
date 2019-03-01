@@ -61,7 +61,7 @@ import com.google.gson.Gson;
 			
 			this.salleDeJeu.enregistrerVariable(variable);
 			for(Joueur joueur : listeJoueurs.values()) {
-				System.out.println("Variable " + variable.getCle() + "=" + variable.getValeur() + " envoyee a " + joueur.pseudonyme);
+				System.out.println("Variable " + variable.getCle() + " = " + variable.getValeur() + " envoyee a " + joueur.pseudonyme);
 				joueur.connexion.send(parseur.toJson(variable));
 			}	
 		}
