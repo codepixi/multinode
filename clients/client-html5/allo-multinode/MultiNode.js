@@ -26,9 +26,19 @@
             {
                 console.log("message " + JSON.stringify(evenement));
                 var message = JSON.parse(evenement.data);
-                var variable = message; // todo autres types de messages dans lequel variable est un seul element
-                console.log("variable recue " + variable.valeur);
-                multinode.recevoirVariable(variable);
+                
+                switch(message.etiquette)
+                {
+                    case "NOTIFICATION_CONNEXION":
+                        multinode.apprendreConnexion(message.pseudonyme);
+                    break;
+                    case "NOTIFICATION_VARIABLE":
+                        var variable = message.variable; 
+                        console.log("variable recue " + variable.valeur);
+                        multinode.recevoirVariable(variable);
+                    break;
+                }
+                
                 //console.debug("Message recu", message.valeur);
             };
         }
@@ -38,7 +48,7 @@
         }
 
         this.messageTransfertVariable = {etiquette:"TRANSFERT_VARIABLE"};
-        this.messageDemandeAuthentification = {etiquette:"DEMANDE_AUTHENTIFICATION"};
+        this.messageDemandeAuthentification = {etiquette:"DEMANDE_AUTHENTIFICATION"};        
         
         this.posterVariableTextuelle = function(id, texte)
         {
@@ -68,7 +78,11 @@
             this.contact.send(JSON.stringify(this.messageDemandeAuthentification));
             
         }
-        
+
+        // messages recus
+        this.messageNotificationConnexion = {etiquette:"NOTIFICATION_CONNEXION"};
+        this.messageNotificationVariable = {etiquette:"NOTIFICATION_VARIABLE"};
+
         // fonction a redefinir
         this.recevoirVariable = function(variable)
         {
@@ -76,6 +90,10 @@
             
         }
         
-    
+        this.apprendreConnexion = function(pseudonyme)
+        {
+            
+        }
+        
     }
  

@@ -38,6 +38,10 @@
         {
             console.log("Surcharge de recevoirVariable " + variable.cle + " = " + variable.valeur);
         }
+        serveurJeu.apprendreConnexion = function(pseudonyme)
+        {
+            console.log("Nouvel ami " + pseudonyme);
+        }
     
         attendre(500).then(() => {
             serveurJeu.demanderAuthentification(pseudonyme);
