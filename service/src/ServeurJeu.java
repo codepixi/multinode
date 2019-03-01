@@ -47,9 +47,19 @@ import com.google.gson.Gson;
 		public void authentifierJoueur(WebSocket socket, String messageJson)
 		{
 			System.out.println("authentifierJoueur()");
+			
+						
 			Joueur joueur = this.listeJoueurs.get(socket);
 			Message.DemandeAuthentification demandeAuthentification = parseur.fromJson(messageJson, Message.DemandeAuthentification.class);
 			joueur.pseudonyme = demandeAuthentification.pseudonyme;
+			
+			Message.NotificationConnexion notification = new Message.NotificationConnexion();
+			notification.pseudonyme = joueur.pseudonyme;
+			for(Joueur autreJoueur : listeJoueurs.values()) {
+				if(autreJoueur.pseudonyme.compareTo(joueur.pseudonyme) == 0) continue;
+				System.out.println("Joueur " + autreJoueur.pseudonyme + " est averti de la nouvelle connexion");
+				autreJoueur.connexion.send(parseur.toJson(notification));
+			}	
 		}
 		
 		public void recevoirVariable(String messageJson)
@@ -60,9 +70,10 @@ import com.google.gson.Gson;
 			System.out.println("Variable : " + variable.getCle() + " = " + variable.getValeur());
 			
 			this.salleDeJeu.enregistrerVariable(variable);
+			Message.NotificationVariable notification = new Message.NotificationVariable(variable);
 			for(Joueur joueur : listeJoueurs.values()) {
 				System.out.println("Variable " + variable.getCle() + " = " + variable.getValeur() + " envoyee a " + joueur.pseudonyme);
-				joueur.connexion.send(parseur.toJson(variable));
+				joueur.connexion.send(parseur.toJson(notification));
 			}	
 		}
 		
