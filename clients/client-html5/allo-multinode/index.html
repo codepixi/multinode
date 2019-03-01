@@ -8,9 +8,15 @@
     
     <script type="text/javascript">
         
+        function attendre(time) {
+            return new Promise((resolve) => setTimeout(resolve, time));
+        }
         
         var serveurJeu = new MultiNode();
     
+        attendre(500).then(() => {
+            serveurJeu.posterVariableTextuelle("argent", "million");
+        }); 
     
     </script>
     
