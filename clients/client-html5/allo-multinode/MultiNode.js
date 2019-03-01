@@ -37,6 +37,9 @@
                         console.log("variable recue " + variable.valeur);
                         multinode.recevoirVariable(variable);
                     break;
+                    case "CONFIRMATION_CONNEXION":
+                        multinode.confirmerConnexion(message.listePseudo);
+                    break;
                 }
                 
                 //console.debug("Message recu", message.valeur);
@@ -82,6 +85,7 @@
         // messages recus
         this.messageNotificationConnexion = {etiquette:"NOTIFICATION_CONNEXION"};
         this.messageNotificationVariable = {etiquette:"NOTIFICATION_VARIABLE"};
+        this.messageConfirmationConnexion = {etiquette:"CONFIRMATION_CONNEXION"};
 
         // fonction a redefinir
         this.recevoirVariable = function(variable)
@@ -95,5 +99,9 @@
             
         }
         
+        this.confirmerConnexion = function(participants)
+        {
+            
+        }
     }
  

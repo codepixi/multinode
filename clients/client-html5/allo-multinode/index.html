@@ -42,6 +42,11 @@
         {
             console.log("Nouvel ami " + pseudonyme);
         }
+        serveurJeu.confirmerConnexion = function(listePseudo)
+        {
+            console.log("Je suis connecte.");
+            console.log("Les autres participants sont " + JSON.stringify(listePseudo));
+        }
     
         attendre(500).then(() => {
             serveurJeu.demanderAuthentification(pseudonyme);
