@@ -13,10 +13,15 @@
         }
         
         var serveurJeu = new MultiNode();
+        serveurJeu.recevoirVariable = function(variable)
+        {
+            console.log("Surcharge de recevoirVariable " + variable.cle + " = " + variable.valeur);
+        }
     
         attendre(500).then(() => {
             serveurJeu.posterVariableTextuelle("argent", "million");
         }); 
+        
     
     </script>
     

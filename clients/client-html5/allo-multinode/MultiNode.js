@@ -9,6 +9,9 @@
     {
         
         this.contact;
+        
+        var multinode = this;
+        
         try
         {
             this.contact = new WebSocket("ws://127.0.0.1:8080/multinode");
@@ -23,7 +26,9 @@
             {
                 console.log("message " + JSON.stringify(evenement));
                 var message = JSON.parse(evenement.data);
-                console.log("variable recue " + message.valeur);
+                var variable = message; // todo autres types de messages dans lequel variable est un seul element
+                console.log("variable recue " + variable.valeur);
+                multinode.recevoirVariable(variable);
                 //console.debug("Message recu", message.valeur);
             };
         }
@@ -53,7 +58,8 @@
             this.contact.send(JSON.stringify(variable));
         }
         
-        this.recevoirVariable = function()
+        // fonction a redefinir
+        this.recevoirVariable = function(variable)
         {
             
             
