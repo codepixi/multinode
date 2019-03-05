@@ -29,30 +29,32 @@
         var pseudonyme = url.get('pseudo');
         console.log("pseudonyme = " + pseudonyme);
     
-        function attendre(time) {
-            return new Promise((resolve) => setTimeout(resolve, time));
-        }
+        //function attendre(time) {
+        //    return new Promise((resolve) => setTimeout(resolve, time));
+        //}
         
         var serveurJeu = new MultiNode();
+        //attendre(500).then(() => {});         
+        serveurJeu.confirmerConnexion = function()
+        {
+            console.log("Je suis connecte.");
+            serveurJeu.demanderAuthentification(pseudonyme);
+            serveurJeu.posterVariableTextuelle("argent", "million");
+        }
+        serveurJeu.confirmerAuthentification = function(listePseudo)
+        {
+            console.log("Je suis authentifie.");
+            console.log("Les autres participants sont " + JSON.stringify(listePseudo));
+        }
+        serveurJeu.apprendreAuthentification = function(pseudonyme)
+        {
+            console.log("Nouvel ami " + pseudonyme);
+        }
         serveurJeu.recevoirVariable = function(variable)
         {
             console.log("Surcharge de recevoirVariable " + variable.cle + " = " + variable.valeur);
         }
-        serveurJeu.apprendreConnexion = function(pseudonyme)
-        {
-            console.log("Nouvel ami " + pseudonyme);
-        }
-        serveurJeu.confirmerConnexion = function(listePseudo)
-        {
-            console.log("Je suis connecte.");
-            console.log("Les autres participants sont " + JSON.stringify(listePseudo));
-        }
-    
-        attendre(500).then(() => {
-            serveurJeu.demanderAuthentification(pseudonyme);
-            serveurJeu.posterVariableTextuelle("argent", "million");
-        }); 
-        
+        serveurJeu.connecter();
     
     </script>
     
