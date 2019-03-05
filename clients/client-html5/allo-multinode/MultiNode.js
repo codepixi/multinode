@@ -48,7 +48,7 @@
 
                 switch(message.etiquette)
                 {
-                    case "NOTIFICATION_CONNEXION":
+                    case "NOTIFICATION_AUTHENTIFICATION":
                         multinode.apprendreAuthentification(message.pseudonyme);
                     break;
                     case "NOTIFICATION_VARIABLE":
@@ -56,9 +56,12 @@
                         console.log("variable recue " + variable.valeur);
                         multinode.recevoirVariable(variable);
                     break;
-                    case "CONFIRMATION_CONNEXION":
+                    case "CONFIRMATION_AUTHENTIFICATION":
                         multinode.confirmerAuthentification(message.listePseudo);
                     break;
+                    //case "CONFIRMATION_CONNEXION": onOpen()
+                    //    multinode.confirmerConnexion();
+                    //break;
                 }
 
                 //console.debug("Message recu", message.valeur);
