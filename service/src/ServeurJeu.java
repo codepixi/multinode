@@ -59,12 +59,13 @@ import com.google.gson.Gson;
 			notification.pseudonyme = joueur.pseudonyme;
 			for(Joueur autreJoueur : listeJoueurs.values()) {
 				if(autreJoueur.pseudonyme.compareTo(joueur.pseudonyme) == 0) continue;
-				System.out.println("Joueur " + autreJoueur.pseudonyme + " est averti de la nouvelle connexion");
+				System.out.println("Joueur " + autreJoueur.pseudonyme + " est averti de la nouvelle authentification");
 				autreJoueur.connexion.send(parseur.toJson(notification));
 				confirmation.getListePseudo().add(autreJoueur.pseudonyme);
 			}
 			
 			joueur.connexion.send(parseur.toJson(confirmation));
+			System.out.println("Joueur " + joueur.pseudonyme + " se fait confirmer son authentification");
 			
 		}
 		
