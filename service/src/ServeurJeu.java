@@ -52,10 +52,10 @@ import com.google.gson.Gson;
 			Message.DemandeAuthentification demandeAuthentification = parseur.fromJson(messageJson, Message.DemandeAuthentification.class);
 			joueur.pseudonyme = demandeAuthentification.pseudonyme;
 			
-			Message.ConfirmationConnexion confirmation = new Message.ConfirmationConnexion();
+			Message.ConfirmationAuthentification confirmation = new Message.ConfirmationAuthentification();
 			confirmation.pseudonyme = joueur.pseudonyme;
 			
-			Message.NotificationConnexion notification = new Message.NotificationConnexion();
+			Message.NotificationAuthentification notification = new Message.NotificationAuthentification();
 			notification.pseudonyme = joueur.pseudonyme;
 			for(Joueur autreJoueur : listeJoueurs.values()) {
 				if(autreJoueur.pseudonyme.compareTo(joueur.pseudonyme) == 0) continue;

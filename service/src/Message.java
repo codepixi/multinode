@@ -57,11 +57,11 @@ public class Message
 	
 	/// MESSAGES VERS LE CLIENT
 	
-	static public class NotificationConnexion extends Message
+	static public class NotificationAuthentification extends Message
 	{
-		public NotificationConnexion() 
+		public NotificationAuthentification() 
 		{
-			this.etiquette = "NOTIFICATION_CONNEXION";
+			this.etiquette = "NOTIFICATION_AUTHENTIFICATION";
 		}
 		
 		protected String pseudonyme;
@@ -101,11 +101,11 @@ public class Message
 		
 	}
 	
-	static public class ConfirmationConnexion extends Message
+	static public class ConfirmationAuthentification extends Message
 	{
-		public ConfirmationConnexion() 
+		public ConfirmationAuthentification() 
 		{
-			this.etiquette = "CONFIRMATION_CONNEXION";
+			this.etiquette = "CONFIRMATION_AUTHENTIFICATION";
 		}
 		
 		protected String pseudonyme;
