@@ -28,8 +28,10 @@
 
         multiNode = new MultiNode();
         multiNode.confirmerConnexion = confirmerConnexion;
+        multiNode.confirmerAuthentification = confirmerAuthentification;
+        multiNode.apprendreAuthentification = apprendreAuthentification;
         multiNode.recevoirVariable = recevoirVariable;
-        multiNode.apprendreConnexion = apprendreConnexion;
+        multiNode.connecter();
 
         listeJoueur = {};
         pseudonymeJoueur = "";
@@ -59,9 +61,16 @@
 
     }
 
-    function confirmerConnexion(autresParticipants){
+    function confirmerConnexion()
+    {
+        console.log("Je suis connecté.");
+        
+        
+    }
+    
+    function confirmerAuthentification(autresParticipants){
 
-        console.log("Je suis authentifier.");
+        console.log("Je suis authentifié.");
         console.log("Les autres participants sont " + JSON.stringify(autresParticipants));
 
         formulaireAuthentification.querySelector("fieldset").disabled = true;
@@ -116,7 +125,7 @@
 
     }
 
-    function apprendreConnexion(pseudonyme){
+    function apprendreAuthentification(pseudonyme){
 
         console.log("Nouvel ami " + pseudonyme);
 
